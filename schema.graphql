@@ -1,0 +1,747 @@
+type Launch {
+  id: ID!
+  registered: Boolean! @index
+  factory: String @index
+  creator: String @index
+  creatorFeeRecipient: String @index
+  curve: String
+  quoteAsset: String
+  configId: BigInt
+  name: String
+  symbol: String
+  image: String
+  description: String
+  website: String
+  twitter: String
+  telegram: String
+  supply: BigInt!
+  curveSupply: BigInt
+  stakingPool: String
+  stakingRewardAmount: BigInt
+  stakingDuration: BigInt
+  phantomQuote: BigInt
+  graduationThreshold: BigInt
+  phase: Int!
+  realQuoteReserve: BigInt!
+  tokenReserve: BigInt!
+  quoteVolume: BigInt!
+  tradeCount: BigInt!
+  holderCount: BigInt!
+  createdAt: BigInt
+  createdBlock: BigInt @index
+  lastTradeAt: BigInt
+  poolId: String
+  dividendVault: String
+  holderFeeMode: Int
+  dividendShareBps: BigInt
+  dividendTaxShareBps: BigInt
+  baseFeeBps: BigInt
+  creatorTaxBps: BigInt
+  protocolShareBps: BigInt
+  buybackShareBps: BigInt
+  buybackEnabled: Boolean
+  feeStrategyEnabled: Boolean
+  baseFeeEnabled: Boolean
+  strategyCreatorBps: BigInt
+  strategyHolderBps: BigInt
+  strategyBurnBps: BigInt
+  strategyLiquidityBps: BigInt
+  priceQuoteX18: BigInt
+  marketCapQuote: BigInt
+  progressBps: BigInt!
+}
+type StrategyBalance {
+  id: ID!
+  asset: String!
+  pendingBurn: BigInt!
+  pendingLiquidity: BigInt!
+  pendingLiquidityTokens: BigInt!
+  tokensBurned: BigInt!
+  liquidityAdded: BigInt!
+}
+type StrategyAllocation {
+  id: ID!
+  token: String!
+  asset: String!
+  protocolAmount: BigInt!
+  creatorAmount: BigInt!
+  holderAmount: BigInt!
+  burnAmount: BigInt!
+  liquidityAmount: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+}
+type StrategyExecution {
+  id: ID!
+  token: String!
+  kind: String!
+  quoteSpent: BigInt!
+  tokensBought: BigInt!
+  tokensUsed: BigInt!
+  liquidityAdded: BigInt!
+  positionId: BigInt
+  timestamp: BigInt!
+  transactionHash: String!
+}
+type DuoState {
+  id: ID!
+  secondaryQuote: String
+  primaryAllocation: BigInt
+  secondaryAllocation: BigInt
+  poolId: String
+  positionId: BigInt
+}
+type DuoTrade {
+  id: ID!
+  token: String!
+  poolId: String!
+  quoteAsset: String!
+  side: String!
+  trader: String!
+  recipient: String!
+  tokens: BigInt!
+  quoteAmount: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type Pool {
+  id: ID!
+  token: String! @index
+  hook: String!
+  currency0: String
+  currency1: String
+  sqrtPriceX96: BigInt!
+  tick: Int!
+  liquidity: BigInt!
+}
+type InternalRouter {
+  id: ID!
+}
+type PoolSwap {
+  id: ID!
+  poolId: String!
+  token: String! @index
+  sender: String!
+  amount0: BigInt!
+  amount1: BigInt!
+  sqrtPriceX96: BigInt!
+  liquidity: BigInt!
+  tick: Int!
+  blockNumber: BigInt! @index
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type LiquidityChange {
+  id: ID!
+  poolId: String!
+  sender: String!
+  tickLower: Int!
+  tickUpper: Int!
+  liquidityDelta: BigInt!
+  salt: String!
+  timestamp: BigInt!
+}
+type HookFee {
+  id: ID!
+  token: String!
+  asset: String!
+  baseFee: BigInt!
+  creatorTax: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+}
+type TreasuryAsset {
+  id: ID!
+  received: BigInt!
+  reservedBuyback: BigInt!
+  opsAccrued: BigInt!
+  opsClaimed: BigInt!
+}
+type Curve {
+  id: ID!
+  token: String!
+}
+type Trade {
+  id: ID!
+  token: String! @index
+  venue: String!
+  side: String!
+  trader: String!
+  recipient: String!
+  tokens: BigInt!
+  quoteAmount: BigInt!
+  refund: BigInt!
+  baseFee: BigInt
+  creatorTax: BigInt
+  snipeTax: BigInt!
+  blockNumber: BigInt! @index
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+# One row per token and UTC hour. Only canonical public trades in the launch's
+# primary quote asset contribute to this aggregate.
+type HourCandle {
+  id: ID!
+  token: String! @index
+  quoteAsset: String!
+  bucketStart: BigInt! @index
+  quoteVolume: BigInt!
+  tradeCount: BigInt!
+  cumulativeQuoteVolume: BigInt!
+  cumulativeTradeCount: BigInt!
+  openPriceQuoteX18: BigInt
+  highPriceQuoteX18: BigInt
+  lowPriceQuoteX18: BigInt
+  closePriceQuoteX18: BigInt
+}
+# One row per token and block timestamp. The cumulative totals let the market
+# API calculate arbitrary rolling boundaries with three rows per token.
+type MarketSecond {
+  id: ID!
+  token: String! @index
+  quoteAsset: String!
+  timestamp: BigInt! @index
+  quoteVolume: BigInt!
+  tradeCount: BigInt!
+  cumulativeQuoteVolume: BigInt!
+  cumulativeTradeCount: BigInt!
+}
+type Graduation {
+  id: ID!
+  token: String!
+  phase: Int!
+  quoteAmount: BigInt!
+  tokenAmount: BigInt!
+  poolId: String
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+}
+type Holder {
+  id: ID!
+  token: String! @index
+  account: String! @index
+  balance: BigInt!
+  updatedAt: BigInt!
+}
+type FeeBalance {
+  id: ID!
+  token: String! @index
+  asset: String!
+  beneficiary: String! @index
+  credited: BigInt!
+  claimed: BigInt!
+  balance: BigInt!
+}
+type QuoteAsset {
+  id: ID!
+  approved: Boolean!
+  decimals: Int!
+  phantomQuote: BigInt!
+  graduationThreshold: BigInt!
+}
+type DividendVault {
+  id: ID!
+  token: String!
+  quoteAsset: String!
+}
+type DividendEpoch {
+  id: ID!
+  vault: String!
+  token: String!
+  quoteAsset: String!
+  epoch: BigInt!
+  deposited: BigInt!
+  claimed: BigInt!
+  rolledOut: BigInt!
+  remaining: BigInt!
+}
+# OG claims use deposit-time accounting, so they never share ordinary epoch rows.
+type OgRewardBalance {
+  id: ID!
+  token: String!
+  quoteAsset: String!
+  deposited: BigInt!
+  allocated: BigInt!
+  queued: BigInt!
+  claimed: BigInt!
+  remaining: BigInt!
+}
+type OgRewardAllocation {
+  id: ID!
+  vault: String!
+  token: String!
+  amount: BigInt!
+  eligibleSupply: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+}
+type OgRewardClaim {
+  id: ID!
+  vault: String!
+  token: String!
+  beneficiary: String! @index
+  amount: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+}
+# An absent row does not prove eligibility: exclusions and next-block activation
+# must be read from the vault. A recorded disqualification is permanent.
+type OgHolderEligibility {
+  id: ID!
+  vault: String!
+  token: String!
+  account: String! @index
+  disqualified: Boolean!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transactionHash: String!
+}
+type ProcessedEvent {
+  id: ID!
+}
+
+# Links a trusted wrapper event to its already-counted curve/pool trade.
+type LatestSettlement {
+  id: ID!
+  tradeId: String!
+}
+type RoutedPayment {
+  id: ID!
+  tradeId: String!
+  router: String!
+  paymentAsset: String!
+  paymentAmount: BigInt!
+  refundAsset: String!
+  refundAmount: BigInt!
+}
+
+# Fixed creator-income recipients verified against the canonical launch router
+# and immutable splitter at the launch event block. Historical rows remain useful.
+type RoyaltyRecipient {
+  id: ID!
+  token: String! @index
+  account: String! @index
+  splitter: String!
+  factory: String!
+  shareBps: Int!
+  createdBlock: BigInt!
+}
+
+# Pro launches have their own ABI and namespace. Values are raw onchain units;
+# a projection is indexed history, never a current wallet/LP authorization proof.
+type ProLaunch {
+  id: ID!
+  chainId: Int! @index
+  token: String! @index
+  factory: String! @index
+  creator: String! @index
+  curve: String!
+  policy: String!
+  configurationHash: String!
+  launchSalt: String!
+  requestedSalt: String!
+  deadline: BigInt!
+  walletExemptions: [String!]!
+  name: String!
+  symbol: String!
+  image: String!
+  description: String!
+  website: String!
+  twitter: String!
+  telegram: String!
+  supply: BigInt!
+  quoteAsset: String! @index
+  phantomQuote: BigInt!
+  graduationThreshold: BigInt!
+  baseFeeBps: Int!
+  buyTaxBps: Int!
+  sellTaxBps: Int!
+  feeRecipient: String!
+  perpetual: Boolean!
+  rulesBitmap: BigInt!
+  rulesActive: Boolean!
+  phase: String!
+  tokenReserve: BigInt!
+  realQuoteReserve: BigInt!
+  accruedFees: BigInt!
+  quoteVolume: BigInt!
+  tradeCount: BigInt!
+  priceQuoteX18: BigInt
+  marketCapQuote: BigInt
+  progressBps: BigInt
+  graduationRegistry: String
+  sweptQuote: BigInt!
+  sweptTokens: BigInt!
+  poolId: String
+  positionId: BigInt
+  liquidity: BigInt
+  createdAt: BigInt!
+  createdBlock: BigInt! @index
+  createdBlockHash: String!
+  creationTransactionHash: String!
+  creationLogIndex: Int!
+  lastTradeAt: BigInt
+}
+type ProRule {
+  id: ID!
+  launchId: String! @index
+  rule: Int!
+  data: String!
+}
+type ProComponent {
+  id: ID!
+  chainId: Int!
+  address: String!
+  token: String!
+  launchId: String!
+  factory: String!
+  kind: String!
+}
+type ProInfrastructure {
+  id: ID!
+  chainId: Int!
+  registry: String!
+  factory: String!
+  codeHash: String!
+}
+type ProTrade {
+  id: ID!
+  launchId: String! @index
+  chainId: Int! @index
+  token: String!
+  factory: String!
+  curve: String!
+  quoteAsset: String!
+  side: String!
+  trader: String!
+  recipient: String!
+  tokens: BigInt!
+  quoteAmount: BigInt!
+  refund: BigInt!
+  fees: BigInt!
+  blockNumber: BigInt! @index
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+# A registry registration is emitted before LaunchCreated in the same transaction.
+# This row preserves that event until the authoritative factory event arrives.
+type ProGraduationRegistration {
+  id: ID!
+  registry: String!
+  factory: String!
+  curve: String!
+  policy: String!
+  configurationHash: String!
+  poolId: String!
+  blockNumber: BigInt!
+  blockHash: String!
+  transactionHash: String!
+}
+type ProGraduation {
+  id: ID!
+  launchId: String! @index
+  chainId: Int!
+  token: String!
+  factory: String!
+  registry: String!
+  kind: String!
+  quoteAmount: BigInt
+  tokenAmount: BigInt
+  poolId: String
+  positionId: BigInt
+  liquidity: BigInt
+  reason: String
+  blockNumber: BigInt!
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type ProWalletRegistration {
+  id: ID!
+  launchId: String! @index
+  chainId: Int!
+  token: String!
+  policy: String!
+  wallet: String! @index
+  blockNumber: BigInt!
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type ProProcessedEvent {
+  id: ID!
+}
+
+# Separate from ordinary Holder: chain + accepted Pro launch + account.
+type ProHolder {
+  id: ID!
+  launchId: String! @index
+  chainId: Int! @index
+  token: String! @index
+  account: String! @index
+  balance: BigInt!
+  updatedAt: BigInt!
+  updatedBlock: BigInt!
+  updatedBlockHash: String!
+}
+type ProHolderLedger {
+  id: ID!
+  chainId: Int! @index
+  token: String!
+  factory: String!
+  creator: String!
+  curve: String!
+  policy: String!
+  configurationHash: String!
+  tokenCodeHash: String!
+  sourceVersion: Int!
+  reviewId: String!
+  tokenDecimals: Int!
+  programVault: String
+  infrastructure: [String!]!
+  genesisSupply: BigInt!
+  currentSupply: BigInt!
+  cumulativeBurned: BigInt!
+  holderCount: BigInt!
+  createdBlock: BigInt!
+  createdBlockHash: String!
+  creationTransactionHash: String!
+  mintLogIndex: Int!
+  lastBlock: BigInt!
+  lastBlockHash: String!
+  lastLogIndex: Int!
+}
+type ProPendingMint {
+  id: ID!
+  token: String!
+  recipient: String!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type ProTokenTransfer {
+  id: ID!
+  launchId: String! @index
+  chainId: Int! @index
+  token: String!
+  from: String!
+  to: String!
+  amount: BigInt!
+  blockNumber: BigInt! @index
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type ProHolderProcessedEvent {
+  id: ID!
+  blockHash: String!
+  payloadHash: String!
+}
+
+# Snapshot/cycle persistence format for the later canonical keeper/API writer.
+# A root is usable only after canonical balance/contest coverage verification.
+type ProProgramSnapshot {
+  id: ID!
+  launchId: String! @index
+  program: BigInt!
+  cycle: BigInt!
+  populationHash: String!
+  evidence: String!
+  root: String!
+  asset: String!
+  assetDecimals: Int!
+  total: BigInt!
+  observedBlock: BigInt!
+  observedBlockHash: String!
+  observedAt: BigInt!
+  authority: String!
+}
+type ProProgramSnapshotClaim {
+  id: ID!
+  snapshotId: String! @index
+  beneficiary: String! @index
+  amount: BigInt!
+  leaf: String!
+  proof: [String!]!
+}
+
+# Settled public post-LP Pro Router amounts. Neither input refund nor curve fees
+# are present in the event, so this entity does not invent either value.
+type ProPoolTrade {
+  id: ID!
+  launchId: String! @index
+  chainId: Int! @index
+  token: String! @index
+  factory: String!
+  router: String!
+  poolId: String! @index
+  quoteAsset: String!
+  side: String!
+  trader: String!
+  recipient: String!
+  amountSpent: BigInt!
+  amountOut: BigInt!
+  tokens: BigInt!
+  quoteAmount: BigInt!
+  blockNumber: BigInt! @index
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+
+# Consent history has its own Registry/participant namespace. AwaitingConsent is
+# distinct from ProLaunch.phase Pending (which means liquidity seeding pending).
+type ProConsentParticipant {
+  id: ID!
+  chainId: Int! @index
+  registry: String! @index
+  factory: String! @index
+  helper: String!
+  reviewId: String!
+  participantId: String! @index
+  token: String! @index
+  launchId: String!
+  creator: String! @index
+  configurationHash: String!
+  role: Int!
+  participantSalt: String!
+  nonce: BigInt!
+  status: String!
+  partnerId: String
+  finalPairId: String
+  registeredBlock: BigInt!
+  registeredBlockHash: String!
+  registrationTransactionHash: String!
+  registrationLogIndex: Int!
+  updatedBlock: BigInt!
+  updatedBlockHash: String!
+  updatedTransactionHash: String!
+  updatedLogIndex: Int!
+}
+type ProConsentToken {
+  id: ID!
+  participantEntityId: String!
+  factory: String!
+  registry: String!
+}
+type ProConsentPair {
+  id: ID!
+  chainId: Int! @index
+  factory: String! @index
+  registry: String! @index
+  finalPairId: String! @index
+  participantId0: String!
+  participantId1: String!
+  token0: String!
+  token1: String!
+  creator0: String! @index
+  creator1: String! @index
+  configurationHash0: String!
+  configurationHash1: String!
+  consumedNonce0: BigInt!
+  consumedNonce1: BigInt!
+  blockNumber: BigInt!
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+type ProConsentEvent {
+  id: ID!
+  chainId: Int!
+  factory: String!
+  registry: String!
+  kind: String!
+  participantId0: String!
+  participantId1: String
+  finalPairId: String
+  nonce0: BigInt!
+  nonce1: BigInt
+  blockNumber: BigInt!
+  blockHash: String!
+  timestamp: BigInt!
+  transactionHash: String!
+  logIndex: Int!
+}
+
+# Generic Trade discovery is independent of XOOX launch economics and Pool rows.
+type TradeDexPool {
+  id: ID!
+  chainId: Int! @index
+  key: String! @index
+  kind: String!
+  dex: String!
+  factory: String! @index
+  address: String!
+  token0: String! @index
+  token1: String! @index
+  poolId: String
+  fee: Int!
+  tickSpacing: Int!
+  hooks: String
+  initialSqrtPriceX96: BigInt
+  createdBlock: BigInt! @index
+  createdBlockHash: String!
+  transactionHash: String!
+  logIndex: Int!
+}
+
+type TradeDexToken {
+  id: ID!
+  chainId: Int! @index
+  address: String! @index
+  name: String
+  symbol: String
+  decimals: Int
+  status: String! @index
+  updatedAt: BigInt!
+}
+
+# A caught-up live cursor cannot prove that newly added subscriptions replayed history.
+type TradeDexCoverage {
+  id: ID!
+  chainId: Int! @index
+  registryHash: String!
+  historyComplete: Boolean!
+  firstObservedBlock: BigInt!
+  lastObservedBlock: BigInt!
+  updatedAt: BigInt!
+}
+
+# One row per TestnetTradeRouter.Trade event. This shape is the shared contract
+# with the web /trade data layer; change it only together with that reader.
+type TradeFeed {
+  id: ID! # "<chainId>:<txHash>:<logIndex>", lowercase
+  chainId: Int!
+  seq: BigInt! @index # blockNumber * 1000000 + logIndex
+  blockNumber: BigInt! @index
+  timestamp: BigInt! @index # block timestamp, seconds
+  transactionHash: String! @index # lowercase
+  logIndex: Int!
+  router: String!
+  wallet: String! @index # Trade.trader, the router's msg.sender
+  recipient: String!
+  tokenIn: String! # 0x0000000000000000000000000000000000000000 is native MON
+  tokenOut: String!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  token: String! @index # the non-quote side; tokenOut when neither side is MON/WMON
+  side: String! # "buy" | "sell" | "swap"
+  quoteAmount: BigInt! # the MON/WMON leg; 0 for "swap"
+}

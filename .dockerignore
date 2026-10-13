@@ -1,0 +1,44 @@
+# Send only the runnable project to the builder.
+*
+!package.json
+!pnpm-lock.yaml
+!tsconfig.json
+!envio-env.d.ts
+!schema.graphql
+!config.xoox-one.json
+!config.xoox-one.breakglass.json
+!config.codegen.yaml
+!config.test.yaml
+!src
+!src/**
+!deployments
+!deployments/10143.json
+!output
+!output/four-step-integration-2026-10-06
+!output/four-step-integration-2026-10-06/step4-reviewed-inputs.public.json
+!scripts
+!scripts/**
+!test-fixtures
+!test-fixtures/**
+
+# Keep credentials and local/generated state out of both the build context
+# and the image, even under the allowed directories above.
+**/.env
+**/.env.*
+**/config.testnet.private.yaml
+**/config.*.private.yaml
+**/config.testnet.unified.yaml
+**/config.testnet.yaml
+config.yaml
+**/.private-indexer.log
+**/.unified-indexer*
+**/.envio*
+**/node_modules
+**/dist
+**/*.tsbuildinfo
+**/coverage
+**/*.pem
+**/*.key
+**/id_ed25519*
+**/id_rsa*
+**/._*

@@ -1,0 +1,45 @@
+{
+  "name": "xoox-indexer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.17.0",
+  "scripts": {
+    "start": "sh scripts/launch.sh",
+    "codegen": "envio codegen --config config.codegen.yaml",
+    "codegen:xoox-one": "envio codegen --config config.xoox-one.json",
+    "configure": "tsx src/configure.ts",
+    "typecheck": "tsx scripts/typecheck.ts config.xoox-one.json && tsc --noEmit -p scripts/tsconfig.json",
+    "typecheck:codegen": "tsx scripts/typecheck.ts config.codegen.yaml",
+    "test": "vitest run",
+    "config:generate": "tsx scripts/generate-config.ts",
+    "config:check": "tsx scripts/generate-config.ts --check",
+    "config:lint": "tsx scripts/config-lint.ts"
+  },
+  "dependencies": {
+    "envio": "3.10.0",
+    "viem": "2.56.3"
+  },
+  "devDependencies": {
+    "@types/node": "26.5.0",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "4.0.18"
+  },
+  "engines": {
+    "node": ">=24.20.0 <25"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ],
+    "overrides": {
+      "envio>express": "4.22.2",
+      "qs@>=6.0.0 <6.16.0": "6.16.0",
+      "ws@>=8.0.0 <8.21.0": "8.21.0",
+      "tsx@>=4.0.0 <4.23.13": "4.23.13",
+      "envio>react": "19.2.8"
+    }
+  }
+}

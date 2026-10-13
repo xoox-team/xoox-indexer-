@@ -1,0 +1,21 @@
+# One row per TestnetTradeRouter.Trade event. This shape is the shared contract
+# with the web /trade data layer; change it only together with that reader.
+type TradeFeed {
+  id: ID! # "<chainId>:<txHash>:<logIndex>", lowercase
+  chainId: Int!
+  seq: BigInt! @index # blockNumber * 1000000 + logIndex
+  blockNumber: BigInt! @index
+  timestamp: BigInt! @index # block timestamp, seconds
+  transactionHash: String! @index # lowercase
+  logIndex: Int!
+  router: String!
+  wallet: String! @index # Trade.trader, the router's msg.sender
+  recipient: String!
+  tokenIn: String! # 0x0000000000000000000000000000000000000000 is native MON
+  tokenOut: String!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  token: String! @index # the non-quote side; tokenOut when neither side is MON/WMON
+  side: String! # "buy" | "sell" | "swap"
+  quoteAmount: BigInt! # the MON/WMON leg; 0 for "swap"
+}

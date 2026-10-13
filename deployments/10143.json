@@ -1,0 +1,135 @@
+{
+  "chainId": 10143,
+  "chainName": "Monad Testnet",
+  "rpcUrl": "https://testnet-rpc.monad.xyz",
+  "explorerUrl": "https://testnet.monadexplorer.com",
+  "nativeCurrency": {
+    "name": "Monad",
+    "symbol": "MON",
+    "decimals": 18
+  },
+  "factory": "0x07FF0e2c978799010E86DD7128B80B5f5E663668",
+  "feeVault": "0xa56877892aabB2dfb0c6E4E0E1BF9B679da871e5",
+  "buybackVault": "0xaC4078C565630057cB93c52bA474514Fd6c79709",
+  "poolManager": "0x451D64ab3b650040d2aE1886602b97ed6eDc643d",
+  "positionManager": "0x3Bb14E3D0Cd50aBe3EdACa06d06c29C78676C31A",
+  "hook": "0x0d4C4Ea806fF74dbeb0bC8481cc1078906E4a044",
+  "swapRouter": "0xCEF5584095aaae26edf08cC4C9d216bC5577cFA5",
+  "startBlock": "67279253",
+  "quoteAssets": [
+    {
+      "address": "0x0000000000000000000000000000000000000000",
+      "symbol": "MON",
+      "decimals": 18,
+      "mock": false
+    },
+    {
+      "address": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+      "symbol": "WMON",
+      "decimals": 18,
+      "mock": false,
+      "category": "crypto",
+      "name": "Wrapped Monad",
+      "logoUrl": "/brand/monad.svg"
+    }
+  ],
+  "environment": "configured",
+  "security": {
+    "deploymentAuthority": "0x9ad4c8C487224b8FCC7434a57F7E7426C174Aa76",
+    "governance": "0x9ad4c8C487224b8FCC7434a57F7E7426C174Aa76",
+    "keeperOperator": "0x9ad4c8C487224b8FCC7434a57F7E7426C174Aa76",
+    "opsRecipient": "0x9ad4c8C487224b8FCC7434a57F7E7426C174Aa76",
+    "permissionless": true
+  },
+  "publication": {
+    "confirmationDepth": 12,
+    "primaryRpcProvider": "monad.xyz",
+    "secondaryRpcProvider": "dwellir.com"
+  },
+  "testnetLiquidityAcceptance": {
+    "checkedAt": "2026-10-07T14:55:18.000Z",
+    "provider": "monad-testnet-onchain",
+    "canaries": [
+      {
+        "kind": "single",
+        "token": "0x68B3A9eFD67931403f2eB86b98cB6CA50Bd0feED",
+        "quoteAsset": "0x0000000000000000000000000000000000000000"
+      },
+      {
+        "kind": "single",
+        "token": "0xA0e2C7633e12756cF54335b08156E35E4766feed",
+        "quoteAsset": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541"
+      },
+      {
+        "kind": "duo",
+        "token": "0x2e339A5f4f2508f6d59333b7fA02F8E812f1fEeD",
+        "quoteAsset": "0x0000000000000000000000000000000000000000",
+        "secondaryQuote": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+        "routeHash": "0x0efb9dbdf770f17ba68ab8305d7484efd8a3607062312aa635587ab0a68a249c"
+      }
+    ]
+  },
+  "launchRouter": "0xb42CFB2E5444E744Af72f0D62161ca7CF7505e98",
+  "stakingFactory": "0xD48B7C050823af39C3139793571810B71f22d1dC",
+  "duoExecutor": "0xA9430411Ce2D4520e5B1dAe8940190Ed05006Edf",
+  "paymentRouter": "0xA87F077f9Eaf3989192B78B536F636D9E6FAFd25",
+  "treasury": "0xDEf86986C63E0cdA59DC1373D1d164DB6B4c28f8",
+  "locker": "0x5a6A31f473cccb0c601ef26c5508c7D4b57e9cF5",
+  "graduationExecutor": "0x78Ca2f638beB5EB586d025d63d8b9450A52eFADd",
+  "dividendFactory": "0x0C7540739f3C7C399Cf77De3448b4f9C10e1FD48",
+  "weth": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+  "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+  "payments": {
+    "router": "0xA87F077f9Eaf3989192B78B536F636D9E6FAFd25",
+    "weth": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+    "v3Factory": "0xF59b8E874f9382B8bf8E0a0a02FDD1332ef2DF1a",
+    "quoterV3": "0xaF429A36a0C4157377c35Db08B6Dc63f0dcB235d",
+    "quoterV4": "0x869834d127b230283fe63E0d0A9bEB67216a94C7",
+    "assets": [
+      {
+        "address": "0x0000000000000000000000000000000000000000",
+        "symbol": "MON",
+        "decimals": 18
+      },
+      {
+        "address": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+        "symbol": "WMON",
+        "decimals": 18
+      }
+    ],
+    "routes": [
+      {
+        "paymentAsset": "0x0000000000000000000000000000000000000000",
+        "quoteAsset": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+        "hops": [
+          {
+            "kind": 0,
+            "tokenIn": "0x0000000000000000000000000000000000000000",
+            "tokenOut": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+            "fee": 0,
+            "tickSpacing": 0
+          }
+        ]
+      },
+      {
+        "paymentAsset": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+        "quoteAsset": "0x0000000000000000000000000000000000000000",
+        "hops": [
+          {
+            "kind": 0,
+            "tokenIn": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541",
+            "tokenOut": "0x0000000000000000000000000000000000000000",
+            "fee": 0,
+            "tickSpacing": 0
+          }
+        ]
+      }
+    ]
+  },
+  "duoPairs": [
+    {
+      "primaryQuote": "0x0000000000000000000000000000000000000000",
+      "secondaryQuote": "0xFb8bf4c1CC7a94c73D209a149eA2AbEa852BC541"
+    }
+  ]
+}

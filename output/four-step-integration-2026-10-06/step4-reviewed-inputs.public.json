@@ -1,0 +1,20 @@
+{
+  "currentManifestSha256": "2ba3ca0be2321d8c4f9877234864c5f971410364b104aee152a9e4a38f90fbc8",
+  "sourcesSha256": "96a9e0fa579f24b31029296632f4f6ee53874860728da31f5c8031009fcd8a1d",
+  "orderedSources": [
+    {
+      "chainId": 10143,
+      "factory": "0x62E492fe66B14d4fd5B26fd89510BBbaF327be4d",
+      "startBlock": "67727163",
+      "poolRouter": "0xa83E9C6eA7bEE27329B6320127b6Ea421F7a0BcF",
+      "consentRegistry": "0x770AC3D10906284Fd6A0345f748561EA81ed00F9"
+    },
+    {
+      "chainId": 10143,
+      "factory": "0x0df97DB808585d23d6333A713C8E7F9396f85779",
+      "startBlock": "68540436",
+      "poolRouter": "0xB9f41d04fC7e50808316b924C78A392b53a55838",
+      "consentRegistry": "0xabe97F8F42b0820D57974ccD3B542936Cebd5c49"
+    }
+  ]
+}
